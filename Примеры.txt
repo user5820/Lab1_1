@@ -1,0 +1,331 @@
+1.1
+package com.first;
+
+import java.util.Scanner;
+
+class Sotrudnik{
+    String fam,im,otch,doljnost;
+    int oklad;
+}
+public class Firma { // главный класс
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in,"cp1251");
+
+        System.out.println("Введите количество сотрудников => ");
+        int kol=sc.nextInt();
+        sc.nextLine();
+
+        Sotrudnik []sotr=new Sotrudnik[kol];
+
+        System.out.println("Введите инофрмацию о каждом сотруднике: ");
+        for(int i=0;i<sotr.length; i++){
+            sotr[i]=new Sotrudnik();
+            System.out.print("Введите Фамилию "+(i+1)+"сотрудника => ");
+            sotr[i].fam= sc.nextLine();
+
+            System.out.print("Введите кго имя => ");
+            sotr[i].im= sc.nextLine();
+
+            System.out.print("Введите его отчество => ");
+            sotr[i].otch= sc.nextLine();
+
+            System.out.print("Введите его должность  => ");
+            sotr[i].doljnost= sc.nextLine();
+
+            System.out.print("Введите его оклад => ");
+            sotr[i].oklad= Integer.parseInt(sc.nextLine());
+            sc.nextLine();
+        }
+        System.out.println( "\n Сотрудник фирмы: \n фам \t имя \t отч \t должность \t оклад");
+        for (Sotrudnik s : sotr) {
+            System.out.print(s.fam+ "\t"+s.im + "\t"+s.otch
+                    + "\t "+s.doljnost + "\t\t"+s.oklad+ "\n");
+        }
+    }
+}
+
+
+
+
+1.2
+package firma2;
+import java.util.Scanner;
+class Sotrudnik{
+    String fam,im,otch, doljnost ;
+    int kolDet;
+    Rebenok []reb=null;
+}
+class Rebenok{
+    String imaR;
+    int vozrastR;
+}
+public class RecSotr1 {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in,"cp1251");
+        System.out.println("Введите количество сотрудников => ");
+        int kol=sc.nextInt();
+        sc.nextLine();
+        Sotrudnik []sotr=new Sotrudnik[kol];
+        System.out.println("Введите информацию о каждом сотруднике: ");
+        for (int i = 0; i < sotr.length; i++) {
+            sotr[i]=new Sotrudnik();
+            System.out.print("Введите фамилию "+(i+1)+" сотрудника => ");
+            sotr[i].fam= sc.nextLine();
+
+            System.out.print("Введите его имя => ");
+            sotr[i].im=sc.nextLine();
+
+            System.out.print("Введите его отчество => ");
+            sotr[i].otch=sc.nextLine();
+
+            System.out.print("Введите его должность => ");
+            sotr[i].doljnost=sc.nextLine();
+
+            System.out.print("Введите количество детей => ");
+            sotr[i].kolDet=sc.nextInt();
+            sc.nextLine(); // очистка буфера
+
+            if (sotr[i].kolDet!=0) {
+                sotr[i].reb=new Rebenok[sotr[i].kolDet];
+                System.out.println("Дети => ");
+                for (int j = 0; j < sotr[i].reb.length; j++) {
+                    sotr[i].reb[j]=new Rebenok();
+
+                    System.out.print("Введите имя "+(i+1)+" ребенка => ");
+                    sotr[i].reb[j].imaR = sc.nextLine();
+
+                    System.out.print("Введите его возраст => ");
+                    sotr[i].reb[j].vozrastR = sc.nextInt();
+                    sc.nextLine(); // очистка буфера
+                }
+            }
+        }
+        System.out.println("\nСотрудники фирмы \n фам \t имя \t отч \t должность");
+        for (Sotrudnik s : sotr) {
+            System.out.print(s.fam+ "\t"+s.im + "\t"+ s.otch + "\t "+ s.doljnost);
+            System.out.println("\n Дети: ");
+            for (Rebenok r : s.reb)
+                System.out.println("\t\t\t"+ r.imaR+ "\t\t"+ r.vozrastR);
+            System.out.println();
+        }
+    }
+}
+
+1.3
+package recordcountry;
+import java.util.Scanner;
+class Strana{
+    String name;
+    double square;
+}
+public class RecordCountry {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in,"cp1251");
+        System.out.println("Введите количество стран=> ");
+        int n=sc.nextInt();
+        Strana[] country =new Strana[n];
+        System.out.println("Введите информацию о странах: ");
+        for (int i = 0; i < country.length; i++) {
+            sc.nextLine(); // очистка буфера
+            country[i]=new Strana();
+            System.out.print("Название "+(i+1)+"-й страны => ");
+            country[i].name=sc.nextLine();
+            System.out.print("Площадь "+(i+1)+"-й страны =>");
+                    country[i].square=sc.nextDouble();
+        }
+        System.out.println("\nХарактеристики стран:");
+        for (Strana strana : country) {
+            System.out.println("" + strana.name + "\t" + strana.square
+                    + " млн кв. км");
+        }
+
+        int nommax=0;
+        double max=country[nommax].square;
+        for (int i = 0; i < country.length; i++)
+            if (country[i].square>max) {
+                max= country[i].square;
+                nommax=i;
+            }
+        System.out.println("\nСтрана с максимальной площадью :");
+        System.out.println(""+country[nommax].name+"\t"+country[nommax].square
+                +"млн кв. км");
+        for (int i = 0; i < country.length-1; i++)
+            for (int j = 0; j < country.length-1-i; j++)
+                if (country[j].square>country[j+1].square){
+                    Strana rab=country[j];
+                    country[j]=country[j+1];
+                    country[j+1]=rab;
+                }
+        System.out.println("\nОтсортированный список по площади:");//
+        for (Strana strana : country) {
+            System.out.println("" + strana.name + "\t" + strana.square + "млн кв. км");
+        }
+
+        for (int i = 0; i < country.length-1; i++)
+            for (int j = 0; j < country.length-i-1; j++)
+                if(country [j].name.compareTo(country[i+1].name)>0){
+                    Strana rab=country[j];
+                    country[j]=country[j+1];
+                    country[j+1]=rab;
+                }
+        System.out.println("\nОтсортированный список по названиям:");
+        for (Strana strana : country) {
+            System.out.println("" + strana.name + "\t" + strana.square
+                    + " млн кв. км");
+        }
+
+        double s=0;
+        for (Strana strana : country) s += strana.square;
+        double sr=s/country.length;
+        System.out.println("Средняя площадь ="+sr);
+        System.out.println("\nСтраны, с площадью больше средней");
+        for (Strana strana : country) {
+            if (strana.square > sr)
+                System.out.println(strana.name + "\t" + strana.square + " млн кв. км");
+        }
+
+        sc.nextLine();
+        System.out.println("Введите название искомой страны=> ");
+        String name=sc.nextLine();
+        int nom=-1;
+
+        for (int i = 0; i < country.length; i++)
+            if (name.equalsIgnoreCase(country[i].name))
+                nom=i;
+        if (nom!= -1) {
+            System.out.println("Такая страна есть в списке. Это "
+                    +country[nom].name+" "+country[nom].square+" млн кв. км");
+        }else System.out.println("Такой страны нет в списке");
+
+    }
+}
+
+1.4
+package recordCountry2;
+import java.util.Scanner;
+class Strana{
+    String name;
+    double square;
+}
+public class RecordCountry2{
+    public static Strana [] setCountryArr(int k){
+        Scanner sc=new Scanner(System.in,"cp1251");
+        Strana[] country =new Strana[k];
+
+        System.out.println("Введите информацию о странах: ");
+        for (int i = 0; i < country.length; i++) {
+            country[i]=new Strana();
+            System.out.print("Название "+(i+1)+"-й страны => ");
+            country[i].name=sc.nextLine();
+            System.out.print("Площадь "+(i+1)+"-й страны => ");
+            country[i].square=sc.nextDouble();
+            sc.nextLine();
+        }
+        return country;
+    }
+
+    public static void showArray(Strana [] cntr){
+        for (Strana strana : cntr) {
+            System.out.println("" + strana.name + " \t" + strana.square + " млн кв. км");
+        }
+    }
+    public static void showCountry(Strana cntr){
+        System.out.println(""+cntr.name+"\t"+cntr.square+" млн кв. км"); }
+    public static int NomMax(Strana []st){
+        int nommax=0;
+        double max=st[nommax].square;
+        for (int i = 0; i < st.length; i++)
+            if (st[i].square>max) {
+                max= st[i].square;
+                nommax=i;
+            }
+        return nommax;
+    }
+    public static void sortSquare(Strana []cntr){
+        for (int i = 0; i < cntr.length-1; i++)
+            for (int j = 0; j < cntr.length-1-i; j++)
+                if (cntr[j].square>cntr[j+1].square){
+                    Strana rab=cntr[j];
+                    cntr[j]=cntr[j+1];
+                    cntr[j+1]=rab;
+                }
+    }
+    public static void sortName(Strana [] cntr){
+        for (int i = 0; i < cntr.length-1; i++)
+            for (int j = 0; j < cntr.length-i-1; j++)
+                if(cntr[j].name.compareTo(cntr[i+1].name)>0){
+                    Strana rab=cntr[j];
+                    cntr[j]=cntr[j+1];
+                    cntr[j+1]=rab;
+                }
+    }
+    public static double avgSquare( Strana [] cntr){
+        double s=0;
+        for (Strana strana : cntr) s += strana.square;
+        return s/cntr.length;
+    }
+    public static Strana [] Bigger(Strana[] cntr){
+        double sred=avgSquare(cntr);
+        int kol=0;
+        for (Strana strana : cntr) {
+            if (strana.square > sred)
+                ++kol;
+        }
+        if (kol != 0){
+            Strana [] bigCountry=new Strana[kol];
+            int n=-1;
+            for (Strana strana : cntr)
+                if (strana.square > sred) {
+                    bigCountry[++n] = strana;
+                }
+            return bigCountry;
+        } else return null;
+    }
+    public static Strana findForName(Strana[] cntr, String name){
+        int n=-1;
+        for (int i = 0; i < cntr.length; i++)
+            if (name.equals(cntr[i].name))
+                n=i;
+        if (n!= -1) {
+            return cntr[n];
+        }else return null;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in,"cp1251");
+        System.out.print("Введите количество стран=> ");
+        int n=sc.nextInt();
+        Strana[] country = setCountryArr(n);
+
+        System.out.println("\nХарактеристики стран:");
+        showArray(country);
+        int nommax=NomMax(country);
+        System.out.println("\nСтрана с максимальной площадью:");
+        showCountry(country[nommax]);
+
+        sortSquare(country);
+        System.out.println("\nОтсортированный список по площади:");
+        showArray(country);
+
+        sortName(country);
+        System.out.println("\nОтсортированный список по названиям:");
+        showArray(country);
+
+        System.out.println("Средняя площадь ="+avgSquare(country));
+
+        System.out.println("\nСтраны, с площадью больше средней");
+        Strana [] larger=Bigger(country);
+        assert larger != null;
+        showArray(larger);
+
+        System.out.println("\nПОИСК СТРАНЫ \n Введите название страны => ");
+        sc.nextLine();
+        String sname=sc.nextLine();
+        Strana sfind =findForName(country, sname);
+        if (sfind!=null) {
+            showCountry(sfind);
+        } else {
+            System.out.println("Такой страны нет в списке!");
+        }
+    }
+}
